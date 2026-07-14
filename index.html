@@ -214,7 +214,40 @@
                 transform: scale(1.1);
             }
         }
-    </style>
+    
+        .product-card-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .product-card-shine::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+            transition: left 0.8s ease;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .product-card-shine:hover::before {
+            left: 100%;
+        }
+        .product-card-shine::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at top, rgba(59,130,246,0.08) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .product-card-shine:hover::after {
+            opacity: 1;
+        }
+</style>
 </head>
 <body class="bg-slate-900 text-slate-100 antialiased selection:bg-blue-500 selection:text-white">
 
@@ -253,24 +286,25 @@
 
     <!-- HERO SECTION -->
     <section class="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-        <div class="absolute inset-0 opacity-40">
-            <div class="absolute top-20 left-10 w-72 h-72 bg-blue-500/30 rounded-full blur-3xl animate-shimmer"></div>
-            <div class="absolute bottom-20 right-10 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-shimmer" style="animation-delay: 1s;"></div>
-            <div class="absolute top-1/2 left-1/2 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl animate-shimmer" style="animation-delay: 2s;"></div>
+        <!-- Background Image (Left Side) -->
+        <div class="absolute inset-0 lg:w-1/2 lg:right-auto">
+            <img src="https://res.cloudinary.com/lv8fo8si/image/upload/f_auto,q_auto/m_siris_1_jr4qq0" alt="Apex Modular House" class="w-full h-full object-cover opacity-60">
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-slate-900/50 to-slate-900"></div>
         </div>
-        
-        <div class="relative z-10 min-h-screen flex flex-col justify-center max-w-[1600px] mx-auto px-4 sm:px-6 md:px-12 pt-20">
-            <div class="max-w-3xl">
+
+        <!-- Content (Right Side) -->
+        <div class="relative z-10 min-h-screen flex items-center max-w-[1600px] mx-auto px-4 sm:px-6 md:px-12 pt-20">
+            <div class="lg:ml-auto lg:w-1/2 max-w-xl">
                 <div class="inline-flex items-center space-x-2 bg-blue-500/10 backdrop-blur-md border border-blue-500/30 px-3 md:px-4 py-2 rounded-full mb-6 md:mb-8 animate-fade-in-up">
                     <span class="w-2 h-2 bg-blue-400 rounded-full pulse-dot"></span>
                     <span class="text-[10px] md:text-xs font-medium text-blue-300 tracking-wider uppercase">Official Partner of Rootjet · Foshan, China</span>
                 </div>
-                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight leading-[0.95] mb-6 md:mb-8 animate-fade-in-up" style="animation-delay: 0.15s;">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[0.95] mb-6 md:mb-8 animate-fade-in-up" style="animation-delay: 0.15s;">
                     <span class="block text-white">Live in the</span>
                     <span class="block text-white">Future of</span>
                     <span class="block accent-gradient italic font-light">Modular Living</span>
                 </h1>
-                <p class="text-base md:text-lg lg:text-xl text-slate-300 leading-relaxed max-w-xl mb-8 md:mb-10 animate-fade-in-up" style="animation-delay: 0.3s;">
+                <p class="text-base md:text-lg text-slate-300 leading-relaxed mb-8 md:mb-10 animate-fade-in-up" style="animation-delay: 0.3s;">
                     Premium capsule cabins and prefab homes, factory-direct from our Rootjet partner facility. Shipped worldwide with live tracking and escrow protection.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-3 md:gap-4 animate-fade-in-up" style="animation-delay: 0.45s;">
@@ -319,7 +353,7 @@
                 <button class="product-tab bg-white/5 text-slate-400 hover:bg-white/10 px-4 md:px-6 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-semibold transition-all" data-category="modular">Modular Flats</button>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8" id="product-grid">
+            <div class="grid grid-cols-2 gap-4 md:gap-6 max-w-5xl mx-auto" id="product-grid">
                 
                 <!-- R Series -->
                 <div class="product-card product-card-shine glass-card rounded-2xl overflow-hidden reveal group" data-category="capsule">
@@ -327,21 +361,21 @@
                         <img src="https://res.cloudinary.com/lv8fo8si/image/upload/f_auto,q_auto/NoteGPT_Image_20260714085546_eqgrq5" alt="R Series Capsule" class="w-full h-full object-cover image-zoom">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent"></div>
                         <div class="absolute top-4 left-4 z-10">
-                            <span class="text-[9px] md:text-[10px] font-mono tracking-[0.3em] text-blue-300 uppercase bg-blue-500/20 backdrop-blur-sm px-2 py-1 rounded">R-Series</span>
+                            <span class="text-[8px] md:text-[9px] font-mono tracking-[0.3em] text-blue-300 uppercase bg-blue-500/20 backdrop-blur-sm px-2 py-1 rounded">R-Series</span>
                         </div>
                     </div>
-                    <div class="p-5 md:p-6">
+                    <div class="p-3 md:p-4">
                         <div class="flex items-start justify-between mb-3">
                             <div>
-                                <h3 class="text-xl md:text-2xl font-bold text-white">R Series</h3>
+                                <h3 class="text-lg md:text-xl font-bold text-white">R Series</h3>
                                 <p class="text-xs text-slate-400 mt-1">Space Capsule · Standard</p>
                             </div>
                             <div class="text-right">
-                                <div class="text-[10px] text-slate-500 uppercase tracking-wider">Starting Price</div>
-                                <div class="text-xl md:text-2xl font-bold accent-gradient">$15,000</div>
+                                <div class="text-[9px] text-slate-500 uppercase tracking-wider">Starting Price</div>
+                                <div class="text-lg md:text-xl font-bold accent-gradient">$15,000</div>
                             </div>
                         </div>
-                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-4 py-2.5 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
+                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-3 py-2 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
                             Inquire Now →
                         </a>
                     </div>
@@ -353,24 +387,24 @@
                         <img src="https://res.cloudinary.com/lv8fo8si/image/upload/f_auto,q_auto/NoteGPT_Image_20260714090600_tkrkhh" alt="R Series Capsule" class="w-full h-full object-cover image-zoom">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent"></div>
                         <div class="absolute top-4 left-4 z-10">
-                            <span class="text-[9px] md:text-[10px] font-mono tracking-[0.3em] text-blue-300 uppercase bg-blue-500/20 backdrop-blur-sm px-2 py-1 rounded">R-Series</span>
+                            <span class="text-[8px] md:text-[9px] font-mono tracking-[0.3em] text-blue-300 uppercase bg-blue-500/20 backdrop-blur-sm px-2 py-1 rounded">R-Series</span>
                         </div>
                     </div>
-                    <div class="p-5 md:p-6">
+                    <div class="p-3 md:p-4">
                         <div class="flex items-start justify-between mb-3">
                             <div>
-                                <h3 class="text-xl md:text-2xl font-bold text-white">R Series</h3>
+                                <h3 class="text-lg md:text-xl font-bold text-white">R Series</h3>
                                 <p class="text-xs text-slate-400 mt-1">Space Capsule · Standard</p>
                             </div>
                             <div class="text-right">
-                                <div class="text-[10px] text-slate-500 uppercase tracking-wider">Starting Price</div>
-                                <div class="text-xl md:text-2xl font-bold accent-gradient">$15,000</div>
+                                <div class="text-[9px] text-slate-500 uppercase tracking-wider">Starting Price</div>
+                                <div class="text-lg md:text-xl font-bold accent-gradient">$15,000</div>
                             </div>
                         </div>
                         <a href="#contact"</p>
                             </div>
                         </div>
-                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-4 py-2.5 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
+                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-3 py-2 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
                             Inquire Now →
                         </a>
                     </div>
@@ -382,21 +416,21 @@
                         <img src="https://res.cloudinary.com/lv8fo8si/image/upload/f_auto,q_auto/1783998980268_p0af72" alt="R Series Capsule" class="w-full h-full object-cover image-zoom">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent"></div>
                         <div class="absolute top-4 left-4 z-10">
-                            <span class="text-[9px] md:text-[10px] font-mono tracking-[0.3em] text-blue-300 uppercase bg-blue-500/20 backdrop-blur-sm px-2 py-1 rounded">R-Series</span>
+                            <span class="text-[8px] md:text-[9px] font-mono tracking-[0.3em] text-blue-300 uppercase bg-blue-500/20 backdrop-blur-sm px-2 py-1 rounded">R-Series</span>
                         </div>
                     </div>
-                    <div class="p-5 md:p-6">
+                    <div class="p-3 md:p-4">
                         <div class="flex items-start justify-between mb-3">
                             <div>
-                                <h3 class="text-xl md:text-2xl font-bold text-white">R Series</h3>
+                                <h3 class="text-lg md:text-xl font-bold text-white">R Series</h3>
                                 <p class="text-xs text-slate-400 mt-1">Space Capsule · Standard</p>
                             </div>
                             <div class="text-right">
-                                <div class="text-[10px] text-slate-500 uppercase tracking-wider">Starting Price</div>
-                                <div class="text-xl md:text-2xl font-bold accent-gradient">$15,000</div>
+                                <div class="text-[9px] text-slate-500 uppercase tracking-wider">Starting Price</div>
+                                <div class="text-lg md:text-xl font-bold accent-gradient">$15,000</div>
                             </div>
                         </div>
-                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-4 py-2.5 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
+                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-3 py-2 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
                             Inquire Now →
                         </a>
                     </div>
@@ -408,38 +442,38 @@
                         <img src="https://res.cloudinary.com/lv8fo8si/image/upload/f_auto,q_auto/IMG_20260714_092745_xapblp" alt="J5-2 Apple Cabin" class="w-full h-full object-cover image-zoom">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent"></div>
                         <div class="absolute top-4 left-4 z-10">
-                            <span class="text-[9px] md:text-[10px] font-mono tracking-[0.3em] text-amber-300 uppercase bg-amber-500/20 backdrop-blur-sm px-2 py-1 rounded">J-Series</span>
+                            <span class="text-[8px] md:text-[9px] font-mono tracking-[0.3em] text-amber-300 uppercase bg-amber-500/20 backdrop-blur-sm px-2 py-1 rounded">J-Series</span>
                         </div>
                     </div>
-                    <div class="p-5 md:p-6">
+                    <div class="p-3 md:p-4">
                         <div class="flex items-start justify-between mb-3">
                             <div>
-                                <h3 class="text-xl md:text-2xl font-bold text-white">J5-2 Apple</h3>
+                                <h3 class="text-lg md:text-xl font-bold text-white">J5-2 Apple</h3>
                                 <p class="text-xs text-slate-400 mt-1">Apple Cabin · Compact</p>
                             </div>
                             <div class="text-right">
-                                <div class="text-[10px] text-slate-500 uppercase tracking-wider">From</div>
-                                <div class="text-xl md:text-2xl font-bold accent-gradient">$12,600</div>
+                                <div class="text-[9px] text-slate-500 uppercase tracking-wider">From</div>
+                                <div class="text-lg md:text-xl font-bold accent-gradient">$12,600</div>
                             </div>
                         </div>
-                        <div class="grid grid-cols-3 gap-3 mb-4 py-3 border-t border-b border-white/10">
+                        <div class="grid grid-cols-3 gap-3 mb-4 py-2 border-t border-b border-white/10">
                             <div class="text-center">
-                                <div class="text-sm md:text-base font-bold text-white">5.6m</div>
-                                <div class="text-[10px] text-slate-500 uppercase">Length</div>
+                                <div class="text-xs md:text-sm font-bold text-white">5.6m</div>
+                                <div class="text-[9px] text-slate-500 uppercase">Length</div>
                             </div>
                             <div class="text-center">
-                                <div class="text-sm md:text-base font-bold text-white">2.25m</div>
-                                <div class="text-[10px] text-slate-500 uppercase">Width</div>
+                                <div class="text-xs md:text-sm font-bold text-white">2.25m</div>
+                                <div class="text-[9px] text-slate-500 uppercase">Width</div>
                             </div>
                             <div class="text-center">
-                                <div class="text-sm md:text-base font-bold text-white">12.6m²</div>
-                                <div class="text-[10px] text-slate-500 uppercase">Area</div>
+                                <div class="text-xs md:text-sm font-bold text-white">12.6m²</div>
+                                <div class="text-[9px] text-slate-500 uppercase">Area</div>
                             </div>
                         </div>
-                        <div class="text-xs text-slate-400 mb-4">
+                        <div class="text-[10px] text-slate-400 mb-3">
                             <span class="text-slate-500">Dimensions:</span> 5.6 × 2.25 × 2.45m (L×W×H)
                         </div>
-                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-4 py-2.5 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
+                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-3 py-2 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
                             Inquire Now →
                         </a>
                     </div>
@@ -451,38 +485,38 @@
                         <img src="https://res.cloudinary.com/lv8fo8si/image/upload/f_auto,q_auto/IMG_20260714_092730_g1fok8" alt="J11-2 Apple Cabin" class="w-full h-full object-cover image-zoom">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent"></div>
                         <div class="absolute top-4 left-4 z-10">
-                            <span class="text-[9px] md:text-[10px] font-mono tracking-[0.3em] text-amber-300 uppercase bg-amber-500/20 backdrop-blur-sm px-2 py-1 rounded">J-Series</span>
+                            <span class="text-[8px] md:text-[9px] font-mono tracking-[0.3em] text-amber-300 uppercase bg-amber-500/20 backdrop-blur-sm px-2 py-1 rounded">J-Series</span>
                         </div>
                     </div>
-                    <div class="p-5 md:p-6">
+                    <div class="p-3 md:p-4">
                         <div class="flex items-start justify-between mb-3">
                             <div>
-                                <h3 class="text-xl md:text-2xl font-bold text-white">J11-2 Apple</h3>
+                                <h3 class="text-lg md:text-xl font-bold text-white">J11-2 Apple</h3>
                                 <p class="text-xs text-slate-400 mt-1">Apple Cabin · Extended</p>
                             </div>
                             <div class="text-right">
-                                <div class="text-[10px] text-slate-500 uppercase tracking-wider">From</div>
-                                <div class="text-xl md:text-2xl font-bold accent-gradient">$21,000</div>
+                                <div class="text-[9px] text-slate-500 uppercase tracking-wider">From</div>
+                                <div class="text-lg md:text-xl font-bold accent-gradient">$21,000</div>
                             </div>
                         </div>
-                        <div class="grid grid-cols-3 gap-3 mb-4 py-3 border-t border-b border-white/10">
+                        <div class="grid grid-cols-3 gap-3 mb-4 py-2 border-t border-b border-white/10">
                             <div class="text-center">
-                                <div class="text-sm md:text-base font-bold text-white">11.5m</div>
-                                <div class="text-[10px] text-slate-500 uppercase">Length</div>
+                                <div class="text-xs md:text-sm font-bold text-white">11.5m</div>
+                                <div class="text-[9px] text-slate-500 uppercase">Length</div>
                             </div>
                             <div class="text-center">
-                                <div class="text-sm md:text-base font-bold text-white">2.25m</div>
-                                <div class="text-[10px] text-slate-500 uppercase">Width</div>
+                                <div class="text-xs md:text-sm font-bold text-white">2.25m</div>
+                                <div class="text-[9px] text-slate-500 uppercase">Width</div>
                             </div>
                             <div class="text-center">
-                                <div class="text-sm md:text-base font-bold text-white">25.88m²</div>
-                                <div class="text-[10px] text-slate-500 uppercase">Area</div>
+                                <div class="text-xs md:text-sm font-bold text-white">25.88m²</div>
+                                <div class="text-[9px] text-slate-500 uppercase">Area</div>
                             </div>
                         </div>
-                        <div class="text-xs text-slate-400 mb-4">
+                        <div class="text-[10px] text-slate-400 mb-3">
                             <span class="text-slate-500">Dimensions:</span> 11.5 × 2.25 × 2.45m (L×W×H)
                         </div>
-                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-4 py-2.5 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
+                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-3 py-2 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
                             Inquire Now →
                         </a>
                     </div>
@@ -494,17 +528,17 @@
                         <img src="https://res.cloudinary.com/lv8fo8si/image/upload/f_auto,q_auto/m_siris_1_jr4qq0" alt="M Series Modular" class="w-full h-full object-contain image-zoom">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent"></div>
                         <div class="absolute top-4 left-4 z-10">
-                            <span class="text-[9px] md:text-[10px] font-mono tracking-[0.3em] text-emerald-300 uppercase bg-emerald-500/20 backdrop-blur-sm px-2 py-1 rounded">M-Series</span>
+                            <span class="text-[8px] md:text-[9px] font-mono tracking-[0.3em] text-emerald-300 uppercase bg-emerald-500/20 backdrop-blur-sm px-2 py-1 rounded">M-Series</span>
                         </div>
                     </div>
-                    <div class="p-5 md:p-6">
+                    <div class="p-3 md:p-4">
                         <div class="flex items-start justify-between mb-3">
                             <div>
-                                <h3 class="text-xl md:text-2xl font-bold text-white">M Series</h3>
+                                <h3 class="text-lg md:text-xl font-bold text-white">M Series</h3>
                                 <p class="text-xs text-slate-400 mt-1">Modular Flat · Premium</p>
                             </div>
                         </div>
-                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-4 py-2.5 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
+                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-3 py-2 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
                             Inquire Now →
                         </a>
                     </div>
@@ -516,17 +550,17 @@
                         <img src="https://res.cloudinary.com/lv8fo8si/image/upload/f_auto,q_auto/m_siris_2_srgvi0" alt="M Series Modular" class="w-full h-full object-contain image-zoom">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent"></div>
                         <div class="absolute top-4 left-4 z-10">
-                            <span class="text-[9px] md:text-[10px] font-mono tracking-[0.3em] text-emerald-300 uppercase bg-emerald-500/20 backdrop-blur-sm px-2 py-1 rounded">M-Series</span>
+                            <span class="text-[8px] md:text-[9px] font-mono tracking-[0.3em] text-emerald-300 uppercase bg-emerald-500/20 backdrop-blur-sm px-2 py-1 rounded">M-Series</span>
                         </div>
                     </div>
-                    <div class="p-5 md:p-6">
+                    <div class="p-3 md:p-4">
                         <div class="flex items-start justify-between mb-3">
                             <div>
-                                <h3 class="text-xl md:text-2xl font-bold text-white">M Series</h3>
+                                <h3 class="text-lg md:text-xl font-bold text-white">M Series</h3>
                                 <p class="text-xs text-slate-400 mt-1">Modular Flat · Premium</p>
                             </div>
                         </div>
-                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-4 py-2.5 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
+                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-3 py-2 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
                             Inquire Now →
                         </a>
                     </div>
@@ -538,17 +572,17 @@
                         <img src="https://res.cloudinary.com/lv8fo8si/image/upload/f_auto,q_auto/m_siris_3_vfuooh" alt="M Series Modular" class="w-full h-full object-contain image-zoom">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent"></div>
                         <div class="absolute top-4 left-4 z-10">
-                            <span class="text-[9px] md:text-[10px] font-mono tracking-[0.3em] text-emerald-300 uppercase bg-emerald-500/20 backdrop-blur-sm px-2 py-1 rounded">M-Series</span>
+                            <span class="text-[8px] md:text-[9px] font-mono tracking-[0.3em] text-emerald-300 uppercase bg-emerald-500/20 backdrop-blur-sm px-2 py-1 rounded">M-Series</span>
                         </div>
                     </div>
-                    <div class="p-5 md:p-6">
+                    <div class="p-3 md:p-4">
                         <div class="flex items-start justify-between mb-3">
                             <div>
-                                <h3 class="text-xl md:text-2xl font-bold text-white">M Series</h3>
+                                <h3 class="text-lg md:text-xl font-bold text-white">M Series</h3>
                                 <p class="text-xs text-slate-400 mt-1">Modular Flat · Premium</p>
                             </div>
                         </div>
-                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-4 py-2.5 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
+                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-3 py-2 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
                             Inquire Now →
                         </a>
                     </div>
@@ -560,47 +594,26 @@
                         <img src="https://res.cloudinary.com/lv8fo8si/image/upload/f_auto,q_auto/m_siris_4_tq6jch" alt="M Series Modular" class="w-full h-full object-contain image-zoom">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent"></div>
                         <div class="absolute top-4 left-4 z-10">
-                            <span class="text-[9px] md:text-[10px] font-mono tracking-[0.3em] text-emerald-300 uppercase bg-emerald-500/20 backdrop-blur-sm px-2 py-1 rounded">M-Series</span>
+                            <span class="text-[8px] md:text-[9px] font-mono tracking-[0.3em] text-emerald-300 uppercase bg-emerald-500/20 backdrop-blur-sm px-2 py-1 rounded">M-Series</span>
                         </div>
                     </div>
-                    <div class="p-5 md:p-6">
+                    <div class="p-3 md:p-4">
                         <div class="flex items-start justify-between mb-3">
                             <div>
-                                <h3 class="text-xl md:text-2xl font-bold text-white">M Series</h3>
+                                <h3 class="text-lg md:text-xl font-bold text-white">M Series</h3>
                                 <p class="text-xs text-slate-400 mt-1">Modular Flat · Premium</p>
                             </div>
                             <div class="text-right">
-                                <div class="text-[10px] text-slate-500 uppercase tracking-wider">Starting Price</div>
-                                <div class="text-xl md:text-2xl font-bold accent-gradient">$15,000</div>
+                                <div class="text-[9px] text-slate-500 uppercase tracking-wider">Starting Price</div>
+                                <div class="text-lg md:text-xl font-bold accent-gradient">$15,000</div>
                             </div>
                         </div>
-                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-4 py-2.5 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
+                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-3 py-2 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
                             Inquire Now →
                         </a>
                     </div>
                 </div>
-                        <div class="grid grid-cols-3 gap-3 mb-4 py-3 border-t border-b border-white/10">
-                            <div class="text-center">
-                                <div class="text-sm md:text-base font-bold text-white">11.5m</div>
-                                <div class="text-[10px] text-slate-500 uppercase">Length</div>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-sm md:text-base font-bold text-white">4.5m</div>
-                                <div class="text-[10px] text-slate-500 uppercase">Width</div>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-sm md:text-base font-bold text-white">51.75m²</div>
-                                <div class="text-[10px] text-slate-500 uppercase">Area</div>
-                            </div>
-                        </div>
-                        <div class="text-xs text-slate-400 mb-4">
-                            <span class="text-slate-500">Dimensions:</span> 11.5 × 4.5 × 3.4m (L×W×H)
-                        </div>
-                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-4 py-2.5 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
-                            Inquire Now →
-                        </a>
-                    </div>
-                </div>
+
 
                 <!-- J11T -->
                 <div class="product-card product-card-shine glass-card rounded-2xl overflow-hidden reveal group" data-category="apple">
@@ -608,38 +621,38 @@
                         <img src="https://res.cloudinary.com/lv8fo8si/image/upload/f_auto,q_auto/IMG_20260714_092730_g1fok8" alt="J11T Apple Cabin" class="w-full h-full object-cover image-zoom">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent"></div>
                         <div class="absolute top-4 left-4 z-10">
-                            <span class="text-[9px] md:text-[10px] font-mono tracking-[0.3em] text-amber-300 uppercase bg-amber-500/20 backdrop-blur-sm px-2 py-1 rounded">J-Series</span>
+                            <span class="text-[8px] md:text-[9px] font-mono tracking-[0.3em] text-amber-300 uppercase bg-amber-500/20 backdrop-blur-sm px-2 py-1 rounded">J-Series</span>
                         </div>
                     </div>
-                    <div class="p-5 md:p-6">
+                    <div class="p-3 md:p-4">
                         <div class="flex items-start justify-between mb-3">
                             <div>
-                                <h3 class="text-xl md:text-2xl font-bold text-white">J11T Apple</h3>
+                                <h3 class="text-lg md:text-xl font-bold text-white">J11T Apple</h3>
                                 <p class="text-xs text-slate-400 mt-1">Apple Cabin · Tall</p>
                             </div>
                             <div class="text-right">
-                                <div class="text-[10px] text-slate-500 uppercase tracking-wider">From</div>
-                                <div class="text-xl md:text-2xl font-bold accent-gradient">$26,600</div>
+                                <div class="text-[9px] text-slate-500 uppercase tracking-wider">From</div>
+                                <div class="text-lg md:text-xl font-bold accent-gradient">$26,600</div>
                             </div>
                         </div>
-                        <div class="grid grid-cols-3 gap-3 mb-4 py-3 border-t border-b border-white/10">
+                        <div class="grid grid-cols-3 gap-3 mb-4 py-2 border-t border-b border-white/10">
                             <div class="text-center">
-                                <div class="text-sm md:text-base font-bold text-white">11.3m</div>
-                                <div class="text-[10px] text-slate-500 uppercase">Length</div>
+                                <div class="text-xs md:text-sm font-bold text-white">11.3m</div>
+                                <div class="text-[9px] text-slate-500 uppercase">Length</div>
                             </div>
                             <div class="text-center">
-                                <div class="text-sm md:text-base font-bold text-white">3.3m</div>
-                                <div class="text-[10px] text-slate-500 uppercase">Width</div>
+                                <div class="text-xs md:text-sm font-bold text-white">3.3m</div>
+                                <div class="text-[9px] text-slate-500 uppercase">Width</div>
                             </div>
                             <div class="text-center">
-                                <div class="text-sm md:text-base font-bold text-white">37.29m²</div>
-                                <div class="text-[10px] text-slate-500 uppercase">Area</div>
+                                <div class="text-xs md:text-sm font-bold text-white">37.29m²</div>
+                                <div class="text-[9px] text-slate-500 uppercase">Area</div>
                             </div>
                         </div>
-                        <div class="text-xs text-slate-400 mb-4">
+                        <div class="text-[10px] text-slate-400 mb-3">
                             <span class="text-slate-500">Dimensions:</span> 11.3 × 3.3 × 3.7m (L×W×H)
                         </div>
-                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-4 py-2.5 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
+                        <a href="#contact" class="block w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold px-3 py-2 rounded-full transition-all text-center text-sm shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
                             Inquire Now →
                         </a>
                     </div>
@@ -801,7 +814,7 @@
                     <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-5 shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
                         <svg class="w-7 h-7 md:w-8 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
                     </div>
-                    <div class="text-[9px] md:text-[10px] font-mono tracking-[0.3em] text-blue-400 mb-2">STEP 01</div>
+                    <div class="text-[8px] md:text-[9px] font-mono tracking-[0.3em] text-blue-400 mb-2">STEP 01</div>
                     <h3 class="text-base md:text-lg font-bold text-white mb-2">You Pay</h3>
                     <p class="text-slate-400 text-xs md:text-sm">Payment to Escrow.com via bank transfer, card, or wire.</p>
                 </div>
@@ -809,7 +822,7 @@
                     <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-5 shadow-lg shadow-indigo-500/30 group-hover:scale-110 transition-transform">
                         <svg class="w-7 h-7 md:w-8 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                     </div>
-                    <div class="text-[9px] md:text-[10px] font-mono tracking-[0.3em] text-indigo-400 mb-2">STEP 02</div>
+                    <div class="text-[8px] md:text-[9px] font-mono tracking-[0.3em] text-indigo-400 mb-2">STEP 02</div>
                     <h3 class="text-base md:text-lg font-bold text-white mb-2">Escrow Freezes</h3>
                     <p class="text-slate-400 text-xs md:text-sm">Funds locked. We cannot touch your money until delivery.</p>
                 </div>
@@ -817,7 +830,7 @@
                     <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-5 shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform">
                         <svg class="w-7 h-7 md:w-8 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
-                    <div class="text-[9px] md:text-[10px] font-mono tracking-[0.3em] text-purple-400 mb-2">STEP 03</div>
+                    <div class="text-[8px] md:text-[9px] font-mono tracking-[0.3em] text-purple-400 mb-2">STEP 03</div>
                     <h3 class="text-base md:text-lg font-bold text-white mb-2">We Ship</h3>
                     <p class="text-slate-400 text-xs md:text-sm">Manufacture, inspect, and ship with full tracking.</p>
                 </div>
@@ -825,7 +838,7 @@
                     <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-5 shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
                         <svg class="w-7 h-7 md:w-8 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                     </div>
-                    <div class="text-[9px] md:text-[10px] font-mono tracking-[0.3em] text-emerald-400 mb-2">STEP 04</div>
+                    <div class="text-[8px] md:text-[9px] font-mono tracking-[0.3em] text-emerald-400 mb-2">STEP 04</div>
                     <h3 class="text-base md:text-lg font-bold text-white mb-2">Funds Released</h3>
                     <p class="text-slate-400 text-xs md:text-sm">You confirm delivery. Only then does Escrow release funds.</p>
                 </div>
