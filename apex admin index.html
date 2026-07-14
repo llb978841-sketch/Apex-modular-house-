@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Modular House — Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .glass-card { background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); }
+        .accent-gradient { background: linear-gradient(135deg, #3B82F6 0%, #6366F1 50%, #8B5CF6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+
+<!-- Login Screen -->
+<div id="login-screen" class="min-h-screen flex items-center justify-center p-4">
+    <div class="glass-card rounded-2xl p-8 max-w-sm w-full border border-emerald-500/20">
+        <div class="text-center mb-6">
+            <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg shadow-emerald-500/30">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            </div>
+            <h3 class="text-lg font-bold text-white">Apex Admin</h3>
+            <p class="text-xs text-slate-400 mt-1">Enter your email to access</p>
+        </div>
+        <input type="email" id="email-input" placeholder="your@email.com" class="w-full bg-slate-800/50 border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-colors mb-4">
+        <button onclick="doLogin()" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold py-3 rounded-full transition-all shadow-lg shadow-emerald-500/30">Access Dashboard</button>
+        <p id="login-error" class="hidden text-xs text-red-400 text-center mt-3">Access denied. Invalid email.</p>
+    </div>
+</div>
+
+<!-- Dashboard -->
+<div id="dashboard" class="hidden max-w-6xl mx-auto px-4 py-8">
+    <div class="flex items-center justify-between mb-8">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center font-black text-white shadow-lg shadow-emerald-500/30">A</div>
+            <div>
+                <h2 class="text-xl font-bold text-white">Apex Admin</h2>
+                <p class="text-xs text-slate-400">Inquiry Dashboard</p>
+            </div>
+        </div>
+        <button onclick="doLogout()" class="text-slate-400 hover:text-white text-sm font-medium flex items-center gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+            Logout
+        </button>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="glass-card rounded-xl p-4 text-center border border-emerald-500/20">
+            <div class="text-2xl font-bold text-white" id="st-total">0</div>
+            <div class="text-[10px] text-slate-400 uppercase tracking-wider mt-1">Total</div>
+        </div>
+        <div class="glass-card rounded-xl p-4 text-center border border-blue-500/20">
+            <div class="text-2xl font-bold text-white" id="st-today">0</div>
+            <div class="text-[10px] text-slate-400 uppercase tracking-wider mt-1">Today</div>
+        </div>
+        <div class="glass-card rounded-xl p-4 text-center border border-amber-500/20">
+            <div class="text-2xl font-bold text-white" id="st-capsule">0</div>
+            <div class="text-[10px] text-slate-400 uppercase tracking-wider mt-1">Capsule</div>
+        </div>
+        <div class="glass-card rounded-xl p-4 text-center border border-purple-500/20">
+            <div class="text-2xl font-bold text-white" id="st-modular">0</div>
+            <div class="text-[10px] text-slate-400 uppercase tracking-wider mt-1">Modular</div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="flex flex-wrap gap-3 mb-6">
+        <button onclick="filterData('all')" class="f-btn px-4 py-2 rounded-full text-sm font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-500/30" data-f="all">All</button>
+        <button onclick="filterData('today')" class="f-btn px-4 py-2 rounded-full text-sm font-medium bg-white/5 text-slate-400 border border-white/10" data-f="today">Today</button>
+        <button onclick="filterData('capsule')" class="f-btn px-4 py-2 rounded-full text-sm font-medium bg-white/5 text-slate-400 border border-white/10" data-f="capsule">Capsule</button>
+        <button onclick="filterData('apple')" class="f-btn px-4 py-2 rounded-full text-sm font-medium bg-white/5 text-slate-400 border border-white/10" data-f="apple">Apple</button>
+        <button onclick="filterData('modular')" class="f-btn px-4 py-2 rounded-full text-sm font-medium bg-white/5 text-slate-400 border border-white/10" data-f="modular">Modular</button>
+        <button onclick="exportCSV()" class="ml-auto px-4 py-2 rounded-full text-sm font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30 hover:bg-blue-500/30 transition-all flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            Export CSV
+        </button>
+    </div>
+
+    <!-- Table -->
+    <div class="glass-card rounded-2xl overflow-hidden border border-white/10">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead class="bg-slate-800/50 border-b border-white/10">
+                    <tr>
+                        <th class="px-4 py-3 text-xs font-medium text-slate-400 uppercase">Date</th>
+                        <th class="px-4 py-3 text-xs font-medium text-slate-400 uppercase">Name</th>
+                        <th class="px-4 py-3 text-xs font-medium text-slate-400 uppercase">Email</th>
+                        <th class="px-4 py-3 text-xs font-medium text-slate-400 uppercase">Country</th>
+                        <th class="px-4 py-3 text-xs font-medium text-slate-400 uppercase">Product</th>
+                        <th class="px-4 py-3 text-xs font-medium text-slate-400 uppercase">Type</th>
+                        <th class="px-4 py-3 text-xs font-medium text-slate-400 uppercase">Details</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body" class="divide-y divide-white/5"></tbody>
+            </table>
+        </div>
+        <div id="empty-msg" class="hidden text-center py-12 text-slate-500 text-sm">No inquiries found.</div>
+    </div>
+</div>
+
+<script>
+const ADMIN_EMAIL = "llb978841@gmail.com";
+let data = [];
+let activeFilter = "all";
+
+function doLogin() {
+    const email = document.getElementById("email-input").value.trim().toLowerCase();
+    if (email === ADMIN_EMAIL) {
+        localStorage.setItem("apex_admin", Date.now());
+        showDashboard();
+    } else {
+        document.getElementById("login-error").classList.remove("hidden");
+    }
+}
+
+function doLogout() {
+    localStorage.removeItem("apex_admin");
+    location.reload();
+}
+
+function showDashboard() {
+    document.getElementById("login-screen").classList.add("hidden");
+    document.getElementById("dashboard").classList.remove("hidden");
+    loadData();
+}
+
+function loadData() {
+    const raw = localStorage.getItem("apex_inquiries");
+    data = raw ? JSON.parse(raw) : [];
+    if (data.length === 0) {
+        data = [
+            {date: "2026-07-14T08:30:00", name: "John Doe", email: "john@example.com", country: "United States", product: "capsule", buyer_type: "solo", details: "Interested in 2 R Series units for resort in Florida."},
+            {date: "2026-07-13T14:15:00", name: "Maria Schmidt", email: "maria@resort.de", country: "European Union", product: "modular", buyer_type: "business", details: "10 M Series for glamping site in Bavaria. Need CE docs."},
+            {date: "2026-07-12T09:00:00", name: "Ahmed Hassan", email: "ahmed@build.sa", country: "Other", product: "apple", buyer_type: "business", details: "Apple cabins for desert resort. Custom cooling needed."},
+        ];
+        localStorage.setItem("apex_inquiries", JSON.stringify(data));
+    }
+    render();
+    stats();
+}
+
+function render() {
+    let filtered = data;
+    if (activeFilter === "today") {
+        const t = new Date().toISOString().split("T")[0];
+        filtered = data.filter(i => i.date.startsWith(t));
+    } else if (activeFilter !== "all") {
+        filtered = data.filter(i => i.product === activeFilter);
+    }
+    filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    const tbody = document.getElementById("table-body");
+    const empty = document.getElementById("empty-msg");
+    if (filtered.length === 0) { tbody.innerHTML = ""; empty.classList.remove("hidden"); return; }
+    empty.classList.add("hidden");
+
+    const pmap = {capsule: "Capsule", apple: "Apple", modular: "Modular", mixed: "Mixed", custom: "Custom"};
+    const pcmap = {capsule: "text-blue-300 bg-blue-500/10", apple: "text-amber-300 bg-amber-500/10", modular: "text-emerald-300 bg-emerald-500/10", mixed: "text-purple-300 bg-purple-500/10", custom: "text-pink-300 bg-pink-500/10"};
+
+    tbody.innerHTML = filtered.map(item => {
+        const d = new Date(item.date);
+        const ds = d.toLocaleDateString() + " " + d.toLocaleTimeString([], {hour: "2-digit", minute:"2-digit"});
+        const tc = item.buyer_type === "business" ? "text-amber-400 bg-amber-500/10" : "text-blue-400 bg-blue-500/10";
+        return `<tr class="hover:bg-white/5 transition-colors">
+            <td class="px-4 py-3 text-xs text-slate-300 whitespace-nowrap">${ds}</td>
+            <td class="px-4 py-3 text-sm text-white font-medium">${esc(item.name)}</td>
+            <td class="px-4 py-3 text-xs"><a href="mailto:${item.email}" class="text-blue-400 hover:text-blue-300">${item.email}</a></td>
+            <td class="px-4 py-3 text-xs text-slate-300">${item.country}</td>
+            <td class="px-4 py-3"><span class="text-[10px] font-medium px-2 py-1 rounded-full ${pcmap[item.product] || "text-slate-300 bg-slate-500/10"}">${pmap[item.product] || item.product}</span></td>
+            <td class="px-4 py-3"><span class="text-[10px] font-medium px-2 py-1 rounded-full ${tc}">${item.buyer_type === "business" ? "Business" : "Solo"}</span></td>
+            <td class="px-4 py-3 text-xs text-slate-400 max-w-xs truncate" title="${esc(item.details)}">${esc(item.details)}</td>
+        </tr>`;
+    }).join("");
+}
+
+function stats() {
+    document.getElementById("st-total").textContent = data.length;
+    const t = new Date().toISOString().split("T")[0];
+    document.getElementById("st-today").textContent = data.filter(i => i.date.startsWith(t)).length;
+    document.getElementById("st-capsule").textContent = data.filter(i => i.product === "capsule").length;
+    document.getElementById("st-modular").textContent = data.filter(i => i.product === "modular").length;
+}
+
+function filterData(f) {
+    activeFilter = f;
+    document.querySelectorAll(".f-btn").forEach(btn => {
+        if (btn.dataset.f === f) {
+            btn.classList.remove("bg-white/5", "text-slate-400", "border-white/10");
+            btn.classList.add("bg-emerald-500/20", "text-emerald-300", "border-emerald-500/30");
+        } else {
+            btn.classList.add("bg-white/5", "text-slate-400", "border-white/10");
+            btn.classList.remove("bg-emerald-500/20", "text-emerald-300", "border-emerald-500/30");
+        }
+    });
+    render();
+}
+
+function exportCSV() {
+    let filtered = data;
+    if (activeFilter === "today") { const t = new Date().toISOString().split("T")[0]; filtered = data.filter(i => i.date.startsWith(t)); }
+    else if (activeFilter !== "all") filtered = data.filter(i => i.product === activeFilter);
+    const csv = ["Date,Name,Email,Country,Product,Buyer Type,Details"];
+    filtered.forEach(i => csv.push(`"${i.date}","${i.name}","${i.email}","${i.country}","${i.product}","${i.buyer_type}","${i.details.replace(/"/g, "\"")}"`));
+    const blob = new Blob([csv.join("\n")], {type: "text/csv"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href = url; a.download = `apex-inquiries-${new Date().toISOString().split("T")[0]}.csv`; a.click(); URL.revokeObjectURL(url);
+}
+
+function esc(t) { const d = document.createElement("div"); d.textContent = t; return d.innerHTML; }
+
+// Check session on load
+const session = localStorage.getItem("apex_admin");
+if (session && (Date.now() - parseInt(session)) < 86400000) showDashboard();
+</script>
+</body>
+</html>
